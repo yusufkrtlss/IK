@@ -1,0 +1,155 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnsan Kaynakları Uygulaması</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* sayfanın tam ortasına almak için */
+            height: 100vh;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+
+        .appbar {
+            width: 100%;
+            height: 50px;
+            background-color: #446699; /* Boho sarısı */
+            padding: 10px 0; /* padding azaltıldı */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+            .appbar h1 {
+                color: #FFDD67; /* Boho mavisi */
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            .appbar button {
+                background-color: #FFDD67; /* Boho mavisi */
+                color: #446699;
+                border: none;
+                padding: 8px 16px; /* buton boyutları azaltıldı */
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-right: 20px;
+                position: absolute;
+                right: 20px;
+            }
+
+                .appbar button:hover {
+                    background-color: #335577;
+                }
+
+        .card-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px; /* Card genişliği arttırıldı */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+            }
+
+            .card img {
+                width: 100%;
+                /*height: 200px; /* Tüm resimlerin yüksekliği aynı yapıldı */
+                object-fit: cover; /* Resimleri eşit boyutta göstermek için */
+            }
+
+        .card-label {
+            padding: 10px;
+            text-align: center;
+            color: #FFDD67; /* Boho sarısı */
+            background-color: #446699; /* Boho mavisi */
+        }
+
+        .footer {
+            text-align: center;
+            align-items: center;
+            width: 100% !important;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
+            .footer img {
+                max-width: 100px;
+            }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="appbar">
+        <h1>İnsan Kaynakları Uygulaması</h1>
+        <button style="color:#446699; ">Çıkış Yap</button>
+    </div>
+
+    <div class="card-container">
+        <div class="card" onclick="location.href='personel_ekle.html'">
+            <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/512x512/shadow/businessman_add.png" alt="Resim 4 Açıklama">
+            <div class="card-label">Personel Ekle</div>
+
+        </div>
+        <div class="card" onclick="location.href='Personel.cshtml'">
+            <img src="https://www.kromaks.com/uploads/kadro/MTVhMjA3NDhmOTY1YTg.png" alt="Resim 1 Açıklama">
+            <div class="card-label">Personel</div>
+
+        </div>
+
+        <div class="card" onclick="location.href='PersonelDegerlendirme.html'">
+            <img src="https://cdn-icons-png.flaticon.com/512/4310/4310896.png" alt="Resim 4 Açıklama">
+            <div class="card-label">Personel Değerlendirme</div>
+
+        </div>
+        <div class="card" onclick="location.href='isbasvuru_goruntuleme.html'">
+            <img src="data:image/png;base64,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" alt="Resim 3 Açıklama">
+            <div class="card-label">İş Başvuruları</div>
+
+        </div>
+        <div class="card" onclick="location.href='is_basvurusu_ekle.html'">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWrrpO2vRrjLRtLlfNo7yCXg2jX3TyvzA0Kg&usqp=CAU" alt="Resim 2 Açıklama">
+            <div class="card-label">İş Başvurusu Ekle</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="https://www.bilsoft.com/images/logolar/bilsoft_logo_1.png" alt="Footer Logo">
+    </div>
+
+</body>
+
+</html>

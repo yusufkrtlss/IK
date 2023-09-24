@@ -1,0 +1,230 @@
+﻿@using EntityLayer.DTOs
+@model StaffReturnDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel</title>
+    <style>
+        .appbar,
+        .table-container,
+        .footer {
+            margin-bottom: 15px;
+        }
+
+        .appbar {
+            text-align: center;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+        }
+
+            .appbar button {
+                padding: 10px 20px;
+                border: none;
+                background-color: #e74c3c;
+                color: #fff;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+        .table-container {
+            margin-top: 20px;
+            max-width: 1200px;
+            padding: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button.detail-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Düzenle butonunun stilini ayarlayandı */
+        .edit-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Sil butonunun stilini kırmızı yapıldı */
+        .delete-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #e74c3c;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            min-height: 100%;
+            position: relative;
+            padding-bottom: 60px;
+            /* footer yüksekliği kadar boşluk */
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+            .footer img {
+                max-width: 100px;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="appbar">
+        <h1>Personel</h1>
+        <button onclick="location.href='index.html'">Geri Dön</button>
+    </div>
+
+    <div class="table-container">
+        <label for="filterName">Ad:</label>
+        <input type="text" id="filterName" onkeyup="filterTable()" placeholder="Adı filtrele..">
+
+        <label for="filterSurname">Soyadı:</label>
+        <input type="text" id="filterSurname" onkeyup="filterTable()" placeholder="Soyadı filtrele..">
+
+        <label for="filterDepartment">Departmanı:</label>
+        <select id="filterDepartment" onchange="filterTable()">
+            @foreach  (var item in Model.Department)
+            {
+                <option value="">@item.DepartmentName</option>
+            }
+            @*<option value="">Hepsi</option>
+            <option value="Yazılım">Yazılım</option>
+            <option value="Pazarlama">Pazarlama</option>
+            <option value="Satış">Satış</option>*@
+        </select>
+        <label for="filterStatus">Çalışma Durumu:</label>
+        <select id="filterStatus" onchange="filterTable()">
+            <option value="">Hepsi</option>
+            <option value="Aktif">Aktif</option>
+            <option value="Pasif">Pasif</option>
+        </select>
+
+        <table id="personelTable" style="margin-top: 16px;">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Personel Adı</th>
+                    <th>Soyadı</th>
+                    <th>Departmanı</th>
+                    <th>Çalışan Durumu</th>
+                    <th>Detay</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Staff)
+                {
+                    <tr>
+
+
+                        <td>@item.Id</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.DepartmentId</td>
+                        <td>@item.Status</td>
+
+                        <td>
+                            <button class="detail-btn" onclick="location.href='personel_Detay.html'">Personel Detay</button>
+                            <button class="edit-btn" onclick="location.href='personel_duzenle.html'">Düzenle</button>
+                            <button class="delete-btn" onclick="deleteRow(this)">Sil</button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <img src="https://www.bilsoft.com/images/logolar/bilsoft_logo_1.png" alt="Footer Logo">
+    </div>
+
+    <script>
+        /* Filtreleme */
+        function filterTable() {
+            var inputName, inputSurname, selectStatus, selectDepartment, table, tr, td1, td2, td3, td4, i, name, surname, department, status2;
+
+            inputName = document.getElementById("filterName");
+            inputSurname = document.getElementById("filterSurname");
+            selectStatus = document.getElementById("filterStatus"); // Düzeltildi
+            selectDepartment = document.getElementById("filterDepartment"); // Departmana göre gelmiyor bakılması gerek 1!
+            table = document.getElementById("personelTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                td1 = tr[i].getElementsByTagName("td")[1];
+                td2 = tr[i].getElementsByTagName("td")[2];
+                td3 = tr[i].getElementsByTagName("td")[3];
+                td4 = tr[i].getElementsByTagName("td")[4];
+
+                if (td1 && td2 && td3 && td4) {
+                    name = td1.textContent || td1.innerText;
+                    surname = td2.textContent || td2.innerText;
+                    status2 = td4.textContent || td4.innerText;
+                    department = td3.textContent || td3.innerText;
+
+                    var nameMatch = name.toLowerCase().includes(inputName.value.toLowerCase());
+                    var surnameMatch = surname.toLowerCase().includes(inputSurname.value.toLowerCase());
+                    var statusMatch = selectStatus.value === "" || status2 === selectStatus.value; // Düzeltildi
+                    var departmentMatch = selectDepartment.value === "" || department === selectDepartment.value;
+
+                    if (nameMatch && surnameMatch && statusMatch && departmentMatch) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
