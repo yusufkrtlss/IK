@@ -18,29 +18,39 @@ namespace BusinessLayer.Concrete
             _staffDal = staffDal;
         }
 
-        public void TDelete(Staff t)
+        public async Task<IEnumerable<Staff>> GetStaffsWithDepartmentGenderAndComments()
         {
-            _staffDal.Delete(t);
+            return await _staffDal.GetStaffsWithDepartmentGenderAndComments();
         }
 
-        public Staff TGetByID(int id)
+        public async Task LoadRelatedEntitiesAsync(Staff staff)
         {
-            return _staffDal.GetByID(id);
+            await _staffDal.LoadRelatedEntitiesAsync(staff);
         }
 
-        public List<Staff> TGetList()
+        public async Task TAddAsync(Staff entity)
         {
-            return _staffDal.GetList();
+            await _staffDal.AddAsync(entity);
         }
 
-        public void TInsert(Staff t)
+        public async Task TDeleteAsync(int id)
         {
-            _staffDal.Insert(t);
+            await _staffDal.DeleteAsync(id);
         }
 
-        public void TUpdate(Staff t)
+        public async Task<IEnumerable<Staff>> TGetAllAsync()
         {
-            _staffDal.Update(t);   
+            return await _staffDal.GetAllAsync();
+        }
+
+        public async Task<Staff> TGetByIdAsync(int id)
+        {
+            return await _staffDal.GetByIdAsync(id);
+        }
+
+        public async Task TUpdateAsync(Staff entity)
+        {
+            await _staffDal.UpdateAsync(entity);
         }
     }
 }

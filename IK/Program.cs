@@ -30,6 +30,11 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 })
                 .AddEntityFrameworkStores<StoreContext>()
                 .AddDefaultTokenProviders();
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole(); // Use Console logging
+    builder.AddDebug();   // Use Debug logging
+});
 
 builder.Services.AddMvc(config =>
 {

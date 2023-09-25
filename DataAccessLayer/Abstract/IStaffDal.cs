@@ -9,5 +9,7 @@ namespace DataAccessLayer.Abstract
 {
     public interface IStaffDal : IGenericDal<Staff>
     {
+        Task<IEnumerable<Staff>> GetStaffsWithDepartmentGenderAndComments();
+        Task LoadRelatedEntitiesAsync(Staff staff);
     }
 }

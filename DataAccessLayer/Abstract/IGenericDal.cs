@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityLayer.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace DataAccessLayer.Abstract
 {
     public interface IGenericDal<T> where T : class
     {
-        void Insert(T t);
-        void Update(T t);
-        void Delete(T t);
-        List<T> GetList();
-        T GetByID(int id);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(int id);
+        Task AddAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(int id);
     }
 }

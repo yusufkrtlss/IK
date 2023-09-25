@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,37 +11,42 @@ namespace DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        public void Delete(T t)
+
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            using var c = new StoreContext();
-            c.Remove(t);
-            c.SaveChanges();
+            using var context = new StoreContext();
+            return await context.Set<T>().ToListAsync();
         }
 
-        public T GetByID(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            using var c = new StoreContext();
-            return c.Set<T>().Find(id);
+            using var context = new StoreContext();
+            return await context.Set<T>().FindAsync(id);
         }
 
-        public List<T> GetList()
+        public async Task AddAsync(T entity)
         {
-            using var c = new StoreContext();
-            return c.Set<T>().ToList();
+            using var context = new StoreContext();
+            context.Set<T>().Add(entity);
+            await context.SaveChangesAsync();
         }
 
-        public void Insert(T t)
+        public async Task UpdateAsync(T entity)
         {
-            using var c = new StoreContext();
-            c.Add(t);
-            c.SaveChanges();
+            using var context = new StoreContext();
+            context.Entry(entity).State = EntityState.Modified;
+            await context.SaveChangesAsync();
         }
 
-        public void Update(T t)
+        public async Task DeleteAsync(int id)
         {
-            using var c = new StoreContext();
-            c.Update(t);
-            c.SaveChanges();
+            using var context = new StoreContext();
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
+            {
+                context.Set<T>().Remove(entity);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

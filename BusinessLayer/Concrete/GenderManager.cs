@@ -18,29 +18,29 @@ namespace BusinessLayer.Concrete
             _genderDal = genderDal;
         }
 
-        public void TDelete(Gender t)
+        public async Task TAddAsync(Gender entity)
         {
-            _genderDal.Delete(t);
+            await _genderDal.AddAsync(entity);
         }
 
-        public Gender TGetByID(int id)
+        public async Task TDeleteAsync(int id)
         {
-            return _genderDal.GetByID(id);
+            await _genderDal.DeleteAsync(id);
         }
 
-        public List<Gender> TGetList()
+        public async Task<IEnumerable<Gender>> TGetAllAsync()
         {
-            return _genderDal.GetList();
+            return await _genderDal.GetAllAsync();
         }
 
-        public void TInsert(Gender t)
+        public async Task<Gender> TGetByIdAsync(int id)
         {
-            _genderDal.Insert(t);
+            return await _genderDal.GetByIdAsync(id);
         }
 
-        public void TUpdate(Gender t)
+        public async Task TUpdateAsync(Gender entity)
         {
-            _genderDal.Update(t);
+            await _genderDal.UpdateAsync(entity);
         }
     }
 }

@@ -9,5 +9,7 @@ namespace BusinessLayer.Abstract
 {
     public interface IStaffService : IGenericService<Staff>
     {
+        Task<IEnumerable<Staff>> GetStaffsWithDepartmentGenderAndComments();
+        Task LoadRelatedEntitiesAsync(Staff staff);
     }
 }

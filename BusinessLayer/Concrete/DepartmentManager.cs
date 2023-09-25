@@ -18,29 +18,29 @@ namespace BusinessLayer.Concrete
             _departmentDal = departmentDal;
         }
 
-        public void TDelete(Department t)
+        public async Task TAddAsync(Department entity)
         {
-            _departmentDal.Delete(t);
+            await _departmentDal.AddAsync(entity);
         }
 
-        public Department TGetByID(int id)
+        public async Task TDeleteAsync(int id)
         {
-            return _departmentDal.GetByID(id);
+            await _departmentDal.DeleteAsync(id);
         }
 
-        public List<Department> TGetList()
+        public async Task<IEnumerable<Department>> TGetAllAsync()
         {
-            return _departmentDal.GetList();
+            return await _departmentDal.GetAllAsync();
         }
 
-        public void TInsert(Department t)
+        public async Task<Department> TGetByIdAsync(int id)
         {
-            _departmentDal.Insert(t);
+            return await _departmentDal.GetByIdAsync(id);
         }
 
-        public void TUpdate(Department t)
+        public async Task TUpdateAsync(Department entity)
         {
-            _departmentDal.Update(t);
+            await _departmentDal.UpdateAsync(entity);
         }
     }
 }

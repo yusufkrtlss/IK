@@ -18,29 +18,29 @@ namespace BusinessLayer.Concrete
             _commentDal = commentDal;
         }
 
-        public void TDelete(Comment t)
+        public async Task TAddAsync(Comment entity)
         {
-            _commentDal.Delete(t);
+            await _commentDal.AddAsync(entity);
         }
 
-        public Comment TGetByID(int id)
+        public async Task TDeleteAsync(int id)
         {
-            return _commentDal.GetByID(id);
+            await _commentDal.DeleteAsync(id);
         }
 
-        public List<Comment> TGetList()
+        public async Task<IEnumerable<Comment>> TGetAllAsync()
         {
-            return _commentDal.GetList();
+            return await _commentDal.GetAllAsync();
         }
 
-        public void TInsert(Comment t)
+        public async Task<Comment> TGetByIdAsync(int id)
         {
-            _commentDal.Insert(t);
+            return await _commentDal.GetByIdAsync(id);
         }
 
-        public void TUpdate(Comment t)
+        public async Task TUpdateAsync(Comment entity)
         {
-            _commentDal.Update(t);
+            await _commentDal.UpdateAsync(entity);
         }
     }
 }

@@ -18,29 +18,29 @@ namespace BusinessLayer.Concrete
             _applicationDal = applicationDal;
         }
 
-        public void TDelete(Application t)
+        public async Task TAddAsync(Application entity)
         {
-            _applicationDal.Delete(t);
+            await _applicationDal.AddAsync(entity);
         }
 
-        public Application TGetByID(int id)
+        public async Task TDeleteAsync(int id)
         {
-            return _applicationDal.GetByID(id);
+            await _applicationDal.DeleteAsync(id);
         }
 
-        public List<Application> TGetList()
+        public async Task<IEnumerable<Application>> TGetAllAsync()
         {
-            return _applicationDal.GetList();
+            return await _applicationDal.GetAllAsync();
         }
 
-        public void TInsert(Application t)
+        public async Task<Application> TGetByIdAsync(int id)
         {
-            _applicationDal.Insert(t);
+            return await _applicationDal.GetByIdAsync(id);
         }
 
-        public void TUpdate(Application t)
+        public async Task TUpdateAsync(Application entity)
         {
-            _applicationDal.Update(t);  
+            await _applicationDal.UpdateAsync(entity);
         }
     }
 }

@@ -18,29 +18,29 @@ namespace BusinessLayer.Concrete
             _userDal = userDal;
         }
 
-        public void TDelete(AppUser t)
+        public async Task TAddAsync(AppUser entity)
         {
-            _userDal.Delete(t);
+            await _userDal.AddAsync(entity);
         }
 
-        public AppUser TGetByID(int id)
+        public async Task TDeleteAsync(int id)
         {
-            return _userDal.GetByID(id);
+            await _userDal.DeleteAsync(id);
         }
 
-        public List<AppUser> TGetList()
+        public async Task<IEnumerable<AppUser>> TGetAllAsync()
         {
-            return _userDal.GetList();
+            return await _userDal.GetAllAsync();
         }
 
-        public void TInsert(AppUser t)
+        public async Task<AppUser> TGetByIdAsync(int id)
         {
-            _userDal.Insert(t);
+            return await _userDal.GetByIdAsync(id);
         }
 
-        public void TUpdate(AppUser t)
+        public async Task TUpdateAsync(AppUser entity)
         {
-            _userDal.Update(t); 
+            await _userDal.UpdateAsync(entity);
         }
     }
 }

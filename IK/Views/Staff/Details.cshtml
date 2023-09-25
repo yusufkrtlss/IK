@@ -1,0 +1,145 @@
+﻿@model EntityLayer.DTOs.StaffDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel Detay</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .appbar, .detail-container, .footer {
+            margin-bottom: 15px;
+        }
+
+        .appbar {
+            text-align: center;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+        }
+
+        .appbar button, .print-btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e74c3c;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .detail-container {
+            margin-top: 20px;
+            max-width: 800px;
+            padding: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        p, select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            page-break-inside: avoid;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            width: 100% !important;
+        }
+
+        .footer img {
+            max-width: 100px;
+        }
+
+        /* Yazdır butonunu ortalamak için stil tanımlaması */
+        .print-btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Yazdırma için özel CSS */
+        
+
+    </style>
+</head>
+
+<body>
+    <div class="appbar">
+        <h1>Personel Detay</h1>
+        <button onclick="location.href='index.html'">Geri Dön</button>
+    </div>
+
+    <div class="detail-container">
+        <img src="https://via.placeholder.com/150" alt="Personel Fotoğrafı">
+        <label>Çalışan Adı:</label>
+        <p>@Model.FirstName</p>
+        <label>Çalışan Soyadı:</label>
+        <p>@Model.LastName</p>
+        <label>Çalışan TC No:</label>
+        <p>@Model.Tc</p>
+        <label>Doğum Tarihi:</label>
+        <p>@Model.Birthday</p>
+        <label>Unvan:</label>
+        <p>@Model.Title</p>
+        <label>Çalışan Telefon No 1:</label>
+        <p>@Model.Phone1</p>
+        <label>Çalışan Telefon No 2:</label>
+        <p>@Model.Phone2</p>
+        <label>E-mail:</label>
+        <p>@Model.Email</p>
+        <label>Cinsiyet:</label>
+        <p>@Model.GenderName</p>
+        <label>İşe Başlama Tarihi:</label>
+        <p>@Model.StartingDate</p>
+        <label>İşten Çıkış Tarihi:</label>
+        <p>@Model.EndingDate</p>
+        <label>Departman:</label>
+        <p>@Model.DepartmentName</p>
+        <label>Adres:</label>
+        <p>@Model.Address</p>
+        
+        <!-- Yazdır butonunu ortalamak için bir div içine alalındı -->
+        <div class="print-btn-container">
+            <button class="print-btn" onclick="window.print()">Yazdır</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <img src="https://www.bilsoft.com/images/logolar/bilsoft_logo_1.png" alt="Footer Logo">
+    </div>
+</body>
+</html>

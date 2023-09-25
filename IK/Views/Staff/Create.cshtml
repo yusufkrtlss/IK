@@ -1,0 +1,324 @@
+﻿@model StaffCreateViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel Ekleme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .appbar,
+        .form-container,
+        .footer {
+            margin-bottom: 25px;
+        }
+
+        .appbar {
+            text-align: center;
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 20px 0;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .appbar button {
+                padding: 12px 24px;
+                border: none;
+                background-color: #e74c3c;
+                color: #fff;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+
+                .appbar button:hover {
+                    background-color: #c0392b;
+                }
+
+        .form-container {
+            max-width: 1200px;
+            padding: 25px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+            .form-section:first-child {
+                border-right: 1px solid #d1d8e4;
+            }
+
+        .form-container .avatar {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .avatar input[type="file"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #d1d8e4;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+            input[type="submit"] {
+                background-color: #34495e;
+                color: #ecf0f1;
+                border: none;
+                padding: 12px 24px;
+                cursor: pointer;
+                font-size: 16px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                input[type="submit"]:hover {
+                    background-color: #2c3e50;
+                }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #ecf0f1;
+            width: 100% !important;
+            box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            .footer img {
+                max-width: 120px;
+            }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #333;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-button {
+            background-color: #34495e;
+            color: #ecf0f1;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .modal-button:hover {
+                background-color: #2c3e50;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="appbar">
+        <h1>Personel Ekleme</h1>
+        <button onclick="location.href='index.html'">Geri Dön</button>
+    </div>
+
+    <form asp-action="Create" method="post">
+        <div class="form-container">
+            <div class="form-section">
+                <label for="foto">Fotoğraf:</label>
+                <div class="avatar" onclick="document.getElementById('foto').click();">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvwIVQnfQU_ub9t1jmiSv7B-GtBtmPRF0yUkNR7MeToOTO3Kizu5C-AhZWEK4jzBuR6S0&usqp=CAU"
+                         alt="Personel Fotoğrafı" id="previewImage">
+                    <input type="file" id="foto" name="foto" accept="image/*" onchange="previewFile()">
+                </div>
+
+                <label asp-for="@Model.AddStaff.FirstName">Çalışan Adı:</label>
+                <input asp-for="@Model.AddStaff.FirstName" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.FirstName" class="text-danger"></span>
+                <label asp-for="@Model.AddStaff.LastName">Çalışan Soyadı:</label>
+                <input asp-for="@Model.AddStaff.LastName" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.LastName" class="text-danger"></span>
+                <label asp-for="@Model.AddStaff.Tc">Çalışan Tc:</label>
+                <input asp-for="@Model.AddStaff.Tc" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Tc" class="text-danger"></span>
+
+                <label asp-for="@Model.AddStaff.Birthday" class="control-label"></label>
+                <input asp-for="@Model.AddStaff.Birthday" class="form-control" type="date" />
+                <span asp-validation-for="@Model.AddStaff.Birthday" class="text-danger"></span>
+
+
+                <label asp-for="@Model.AddStaff.Title">Unvan:</label>
+                <input asp-for="@Model.AddStaff.Title" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Title" class="text-danger"></span>
+            </div>
+            <div class="form-section">
+
+                <label asp-for="@Model.AddStaff.Phone1">Çalışan Telefon No 1:</label>
+                <input asp-for="@Model.AddStaff.Phone1" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Phone1" class="text-danger"></span>
+
+                <label asp-for="@Model.AddStaff.Phone2">Çalışan Telefon No 2:</label>
+                <input asp-for="@Model.AddStaff.Phone2" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Phone2" class="text-danger"></span>
+
+                <label asp-for="@Model.AddStaff.Email">Email:</label>
+                <input asp-for="@Model.AddStaff.Email" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Email" class="text-danger"></span>
+
+                <label asp-for="SelectedGenderId" class="control-label">Cinsiyet:</label>
+                <select asp-for="SelectedGenderId" asp-items="Model.Genders" class="form-control">
+                    <option value="">Select Gender</option>
+                </select>
+                <span asp-validation-for="SelectedGenderId" class="text-danger"></span>
+
+
+                <label asp-for="@Model.AddStaff.StartingDate" class="control-label"></label>
+                <input asp-for="@Model.AddStaff.StartingDate" class="form-control" type="date" />
+                <span asp-validation-for="@Model.AddStaff.StartingDate" class="text-danger"></span>
+
+                @*<label asp-for="@Model.AddStaff.EndingDate" class="control-label"></label>
+                <input asp-for="@Model.AddStaff.EndingDate" class="form-control" type="date" />
+                <span asp-validation-for="@Model.AddStaff.EndingDate" class="text-danger"></span>*@
+
+                <label asp-for="SelectedDepartmentId" class="control-label">Departmanı:</label>
+                <select asp-for="SelectedDepartmentId" asp-items="Model.Departments" class="form-control">
+                    <option value="">Select Department</option>
+                </select>
+                <span asp-validation-for="SelectedDepartmentId" class="text-danger"></span>
+
+                <label asp-for="@Model.AddStaff.Address" class="control-label">Adres:</label>
+                <input asp-for="@Model.AddStaff.Address" class="form-control" />
+                <span asp-validation-for="@Model.AddStaff.Address" class="text-danger"></span>
+
+                <input class="submit-button" type="submit" value="Ekle">
+            </div>
+
+
+        </div>
+    </form>
+    @*<div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Personel başarıyla eklendi!</p>
+            <button class="modal-button" id="modalCloseButton">Kapat</button>
+        </div>
+    </div>*@
+
+
+    <div class="footer">
+        <img src="https://www.bilsoft.com/images/logolar/bilsoft_logo_1.png" alt="Footer Logo">
+    </div>
+
+    <script>
+        /* Resim ekleme kodu*/
+        function previewFile() {
+            const preview = document.getElementById('previewImage');
+            const file = document.getElementById('foto').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                preview.src = reader.result;
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        var modalCloseButton = document.getElementById("modalCloseButton");
+
+        document.querySelector('.submit-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            modal.style.display = "block";
+        });
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        modalCloseButton.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
